@@ -1,0 +1,185 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    min-width: 100vw;
+    min-height: 100vh;
+    background: #272626;
+    color: white;
+}
+header{
+    background: #272626;
+}
+
+/*nav, ul, li{*/
+/*    display: inline-flex;*/
+/*    text-decoration: none;*/
+/*}*/
+/*ul>li{*/
+/*    min-width: 5rem;*/
+/*}*/
+a{
+    color: white;
+    text-decoration: none;
+}
+.logo{
+    margin: 1rem;
+    max-width: 5rem;
+}
+
+.parallax {
+    /* The image used */
+    background-image: linear-gradient(
+            to bottom,
+            rgba(0,0,0, 0),
+            rgba(0,0,0, 100)
+    ),url("../img/movie-background.jpg") ;
+
+    /* Set a specific height */
+    min-height: 100vh;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.content, .card{
+    display: flex;
+    grid-template-columns: auto auto auto auto;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    flex-wrap: wrap;
+    width: 98%;
+    flex-direction: row;
+    margin: auto;
+    justify-content: center;
+    padding-top: 2rem;
+}
+.cardHeading{
+    font-size:1.5rem
+}
+.seeAll{
+    text-align: right;
+}
+.movie-category{
+    padding: 1rem;
+    box-shadow: 1px 1px 10px grey;
+    margin: 2rem 1rem;
+    border-radius: 1rem;
+    background: #333333;
+}
+
+.caption{
+    padding: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.movieSummary{
+    font-size: 0.8rem;
+}
+
+
+.cardContent{
+    color: white;
+    background: #272626;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    max-height: 420px;
+    width: min-content;
+}
+.movieImg{
+   height: 365px
+}
+.cardContent:hover{
+    transform: scale(1.2, 1.2);
+    box-shadow: 1px 1px 5px grey;
+    height: auto;
+}
+.movieSummary{
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
+.searchBox{
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+}
+
+.filterContainer{
+    display: block;
+    float: right;
+}
+
+#next{
+    font-size: 1rem;
+    padding: 0.5rem;
+}
+
+/* Dropdown Button */
+.dropbtn {
+    background-color: #3498DB;
+    color: white;
+    padding: 10px;
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    /* height: 40px; */
+    margin: 1rem;
+    border-radius: 0.3rem;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #2980B9;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    max-height: 200px;
+    overflow: auto;
+    cursor: pointer;
+}
+
+
+/* Links inside the dropdown */
+.dropdown-content div {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdownOptions:hover{
+    color: #f1f1f1;
+    background: #272626;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #414141;
+    color: white;
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+
+@media all and (max-width: 767px){
+    .movieImg {
+        /*height: 125px;*/
+    }
+}
+
+
