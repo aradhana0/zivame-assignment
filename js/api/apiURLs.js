@@ -26,5 +26,5 @@ export const getMovieVideosURL = (movie_id) => `/movie/${movie_id}/videos`      
 export const getNowPlayingMoviesURL = () => `/movie/now_playing`             //Get a list of movies in theatres.
 export const getPopularMoviesURL = () => `/movie/popular`             //Get a list of the current popular movies on TMDB. This list updates daily.
 export const getUpcomingMoviesURL = () => `/movie/upcoming`             //Get a list of upcoming movies in theatres.
-export const getDiscoverMovieByGenre = (genre) => `/discover/movie`             //Get a list of upcoming movies in theatres.
+export const getDiscoverMovieByGenre = () => `/discover/movie`             //Get a list of upcoming movies in theatres.
 

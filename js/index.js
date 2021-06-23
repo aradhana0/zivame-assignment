@@ -5,9 +5,6 @@ import {showMovieBasedOnFilter, listByPage} from "./eventFunctions.js";
 
 const cardHeading = document.getElementsByClassName('cardHeading')[0]
 const card = document.getElementsByClassName('card')[0]
-const first = document.getElementById('first')
-const last = document.getElementById('last')
-const previous = document.getElementById('previous')
 const next = document.getElementById('next')
 
 
@@ -16,9 +13,14 @@ function getGenre() {
     return APIWrapperFn('get', url, {}, null, null)
         .then(res => res)
 }
-function discoverGenre(genre, page) {
-    const url = APIURL.getDiscoverMovieByGenre(genre)
-    return APIWrapperFn('get', url, {page,with_genres:genre}, null, null)
+function discoverGenre(genre, page, filter) {
+    let params = {}
+    params['include_adult'] = false
+    if(genre) params['with_genre'] = genre
+    if(page) params['page'] = page
+    if(filter) params['sort_by'] = filter
+    const url = APIURL.getDiscoverMovieByGenre()
+    return APIWrapperFn('get', url, {...params}, null, null)
         .then(res => res)
 }
 function getMovieDetails(movieId) {
@@ -58,9 +60,9 @@ function getMovieVideos(movieId) {
 }
 
 
-export function getNowPlayingMovies(page) {
+export function getNowPlayingMovies(page, filter) {
     const url = APIURL.getNowPlayingMoviesURL()
-    return APIWrapperFn('get', url, {page}, null, null)
+    return APIWrapperFn('get', url, {page, sort_by: filter, include_adult: false}, null, null)
         .then(res => {
             console.log('getNowPlayingMovies......',res)
             return res
@@ -117,23 +119,25 @@ getGenreList.then(response=>{
     const categoryItems = document.getElementById('CategoryItems')
 
     result.map(r=>{
+        // if(r.poster_path){
         const el = document.createElement('div')
 
         el.innerText = r.name
         el.classList.add('dropdownOptions')
         el.addEventListener('click',  ()=>movieListBasedOnGenre(r))
         categoryItems.appendChild(el);
+        // }
     })
 })
 }
 
-export function movieListBasedOnGenre (genre, page=1) {
-
-    discoverGenre(genre.id, page)
+export function movieListBasedOnGenre (genre, page=1, filter) {
+    discoverGenre(genre.id, page,filter)
         .then(res=>{
             console.log('movieListBasedOnGenre........',res.results)
             card.innerHTML = ''
-            cardHeading.innerText = genre.name
+
+            cardHeading.innerText = genre.name || 'Movie'
             showMovieBasedOnFilter(card, res.results)
             next.addEventListener('click', ()=>{
                 listByPage(genre, ++res.page)
@@ -152,4 +156,3 @@ showGenreFilter?.addEventListener('click', ()=>{
 next.addEventListener('click', ()=>{
     listByPage()
 })
-

@@ -6,9 +6,18 @@ let page = 1;
 let numberOfPages = 1;   // calculates the total number of pages
 const cardHeading = document.getElementsByClassName('cardHeading')[0]
 const card = document.getElementsByClassName('card')[0]
+const movieListSorting = document.getElementById('movieListSorting')
 
-function nowPlaying(page = 1) {
-    const nowPlayingMoviesList = getNowPlayingMovies(page)
+
+
+movieListSorting.addEventListener('change', ()=>{
+    movieListBasedOnGenre('', page, movieListSorting.value)
+})
+
+
+
+function nowPlaying(page = 1, filter) {
+    const nowPlayingMoviesList = getNowPlayingMovies(page, filter)
     try {
         nowPlayingMoviesList.then(response => {
             console.log('in card...', response)
@@ -41,32 +50,34 @@ export function listByPage(id, pageNo) {
 export function showMovieBasedOnFilter(card, r) {
     console.log('showMovieBasedOnFilter.......', window.location)
     r.map(r => {
-        const el = document.createElement('div')             // Create a <div> node
-        el.classList.add('cardContent');
-        el.addEventListener('click', () => {
-            sessionStorage.setItem('selectedMovieDetail', JSON.stringify(r))
-            window.location.href = '/MovieDB/movieDetails.html?id=' + r.id
-        })
+        if(r.poster_path) {
+            const el = document.createElement('div')             // Create a <div> node
+            el.classList.add('cardContent');
+            el.addEventListener('click', () => {
+                sessionStorage.setItem('selectedMovieDetail', JSON.stringify(r))
+                window.location.href = '/MovieDB/movieDetails.html?id=' + r.id
+            })
 
 
-        const img = document.createElement('img')
-        img.classList.add('movieImg')
-        img.src = 'https://image.tmdb.org/t/p/w400/' + r.poster_path
-        img.setAttribute('loading', 'lazy')
-        el.appendChild(img)
+            const img = document.createElement('img')
+            img.classList.add('movieImg')
+            img.src = 'https://image.tmdb.org/t/p/w400/' + r.poster_path
+            img.setAttribute('loading', 'lazy')
+            el.appendChild(img)
 
-        const title = document.createElement('div')
-        title.innerText = ' IMDB: ' + r.vote_average + ' (' + r.vote_count + ' Users)'
-        title.classList.add('caption')
-        el.appendChild(title);
+            const title = document.createElement('div')
+            title.innerText = ' IMDB: ' + r.vote_average + ' (' + r.vote_count + ' Users)'
+            title.classList.add('caption')
+            el.appendChild(title);
 
 
-        // const movieSummary = document.createElement('p');
-        // movieSummary.innerHTML = r.overview
-        // movieSummary.classList.add('movieSummary')
+            // const movieSummary = document.createElement('p');
+            // movieSummary.innerHTML = r.overview
+            // movieSummary.classList.add('movieSummary')
 
-        // el.appendChild(movieSummary)
-        card.appendChild(el);
+            // el.appendChild(movieSummary)
+            card.appendChild(el);
+        }
     })
 }
 
